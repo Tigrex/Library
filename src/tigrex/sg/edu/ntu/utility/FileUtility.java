@@ -249,6 +249,38 @@ public class FileUtility {
 		logger.debug("-writeMapOfMapToFile({})", path);
 	}
 	
+	/**
+	 * Write a list data structure to a file.
+	 * 
+	 * @param list
+	 * @param path
+	 */
+	public void writeListToFile(List<?> list, String path) {
+		
+		logger.debug("+writeListToFile({})", path);
+		
+		try {
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream(path), "utf-8"));
+			
+			for (Object item: list) {
+				writer.write(item.toString());
+				writer.newLine();
+			}
+			
+			writer.close();
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		logger.debug("-writeListToFile({})", path);
+	}
+	
 	
 	public static void main(String[] args) {
 
@@ -294,6 +326,12 @@ public class FileUtility {
 		
 		utility.writeMapOfMapToFile(testMapOfMap, "test/output2.txt");
 
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(9);
+		list.add(3);
+		list.add(5);
+		utility.writeListToFile(list, "test/output3.txt");
+		
 		
 	}
 
